@@ -139,6 +139,7 @@ public class DetailCell extends javax.swing.JLayeredPane {
         
         
         int TongMa = (date.getDate() + maThang + maNam + maTheKy + MaSaiSo)-60;
+        TongMa = Math.abs(TongMa);
         String CanChiNgay = can[TongMa%10] + " " + chi[TongMa%12];
         
         System.out.println(maNam);

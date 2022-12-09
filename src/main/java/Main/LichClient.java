@@ -17,7 +17,7 @@ public class LichClient extends javax.swing.JFrame implements Runnable{
     public LichClient() {
         
         try {
-            soc = new Socket("192.168.214.108", 3333);
+            soc = new Socket("localhost", 3333);
             this.dis = new DataInputStream(soc.getInputStream());
             this.dos = new DataOutputStream(soc.getOutputStream());
         }
