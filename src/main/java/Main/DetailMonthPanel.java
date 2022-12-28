@@ -1,6 +1,5 @@
 package Main;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -11,7 +10,6 @@ import javax.swing.JFrame;
 public class DetailMonthPanel extends javax.swing.JLayeredPane {
     int year;
     int month;
-    VietCalendar VietCal;
     public static void main(String[] args){
         JFrame fr = new JFrame();
         fr.setSize(500, 500);
@@ -92,7 +90,6 @@ public class DetailMonthPanel extends javax.swing.JLayeredPane {
         
     }
     private void setDate() {
-        VietCal = new VietCalendar();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month - 1);  //  month jan as 0 so start from 0
@@ -106,7 +103,7 @@ public class DetailMonthPanel extends javax.swing.JLayeredPane {
                 if (!cell.isTitle()) {
                     int date = calendar.get(Calendar.DATE);
                     if(calendar.get(Calendar.MONTH) == month - 1){
-                        int[] Gdate = VietCal.convertSolar2Lunar(date, this.month, this.year, 7.0);
+                        int[] Gdate = VietCalendar.convertSolar2Lunar(date, this.month, this.year, 7.0);
                         cell.LDateLabel.setText(Gdate[0] + "/"+Gdate[1]);
                         cell.setDate(calendar.getTime(),Gdate[0],Gdate[1],Gdate[2],Gdate[3]);
                     }

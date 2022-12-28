@@ -9,7 +9,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.Date;
-import javax.swing.BorderFactory;
 
 /**
  *
@@ -20,8 +19,8 @@ public class DetailCell extends javax.swing.JLayeredPane {
     public String[] can = {"Canh","Tân","Nhâm","Quý","Giáp" , "Ất", "Bính","Đinh","Mậu", "Kỷ"};
     public String[] chi = {"Tý","Sửu","Dần","Mão", "Thìn", "Tỵ",
         "Ngọ","Mùi", "Thân", "Dậu", "Tuất", "Hợi"};
-    public final String[] TenThang = {"Giêng","Mão","Thìn", "Thìn", "Tỵ",
-        "Ngọ","Mùi", "Thân", "Dậu", "Tuất", "Hợi","Tý","Chạp",};
+    public final String[] TenThang = {"Dần","Mão", "Thìn", "Tỵ",
+        "Ngọ","Mùi", "Thân", "Dậu", "Tuất", "Hợi","Tý","Sửu"};
     public Date date;
     public boolean isToDay;
     public boolean title;
@@ -29,7 +28,6 @@ public class DetailCell extends javax.swing.JLayeredPane {
     int LMonth;
     int Lyear;
     int LLeapMonth;
-    String Event;
     /**
      * Creates new form DetailCell
      */
@@ -69,9 +67,12 @@ public class DetailCell extends javax.swing.JLayeredPane {
     
     public String[] TinhCanChi(){
         // Can chi nam
+        System.out.println(Lyear);
+        System.out.println(LMonth);
+        System.out.println(LDay);
         int canNam = Lyear%10;
         int chiNam = Lyear%12;
-        String canChiNam = null;
+        String canChiNam;
         if(chiNam >=4){
             canChiNam = can[canNam] + " " + chi[chiNam -4];
         }
@@ -84,23 +85,23 @@ public class DetailCell extends javax.swing.JLayeredPane {
         switch (canNam) {
             case 0:
             case 5:
-                canChiThang = can[(LMonth+7)%10] + " " + TenThang[LMonth];
+                canChiThang = can[(LMonth+7)%10] + " " + TenThang[LMonth-1];
                 break;
             case 4:
             case 9:
-                canChiThang = can[(LMonth+5)%10] + " " +  TenThang[LMonth];
+                canChiThang = can[(LMonth+5)%10] + " " +  TenThang[LMonth-1];
                 break;
             case 1:
             case 6:
-                canChiThang = can[(LMonth+9)%10] + " " + TenThang[LMonth];
+                canChiThang = can[(LMonth+9)%10] + " " + TenThang[LMonth-1];
                 break;
             case 2:
             case 7:
-                canChiThang = can[(LMonth+1)%10] + " " + TenThang[LMonth];
+                canChiThang = can[(LMonth+1)%10] + " " + TenThang[LMonth-1];
                 break;
             case 3:
             case 8:
-                canChiThang = can[(LMonth+3)%10] + " " + TenThang[LMonth];
+                canChiThang = can[(LMonth+3)%10] + " " + TenThang[LMonth-1];
                 break;
             default:
                 throw new AssertionError();
@@ -113,7 +114,7 @@ public class DetailCell extends javax.swing.JLayeredPane {
         int ThangDuong = date.getMonth()+1;
         int NamDuong = date.getYear() + 1900;
         if(ThangDuong%2==0){
-            maThang = ThangDuong + 30;
+            maThang = ThangDuong/2 + 30;
         }
         else {
             if(ThangDuong == 9 || ThangDuong == 11){
@@ -136,11 +137,8 @@ public class DetailCell extends javax.swing.JLayeredPane {
         if(NamDuong % 4 == 0 || NamDuong %100 == 0){
             MaSaiSo = -1;
         }
-        
-        
         int TongMa = (date.getDate() + maThang + maNam + maTheKy + MaSaiSo)-60;
-        TongMa = Math.abs(TongMa);
-        String CanChiNgay = can[TongMa%10] + " " + chi[TongMa%12];
+        String CanChiNgay = can[Math.abs(TongMa%10)] + " " + chi[Math.abs(TongMa%12)];
         
         System.out.println(maNam);
         System.out.println(maThang);
